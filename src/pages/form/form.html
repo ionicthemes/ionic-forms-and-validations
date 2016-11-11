@@ -1,0 +1,117 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Ionic2 Forms</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding class="form-content">
+  <form [formGroup]="sampleForm" class="form" (ngSubmit)="onSubmit(sampleForm.value)" >
+
+    <ion-item>
+      <ion-label floating color="primary" >Username</ion-label>
+      <ion-input type="text" formControlName="username" class="form-controll"></ion-input>
+    </ion-item>
+    <div *ngIf="formErrors.username">
+      <div *ngFor="let errors of formErrors.username" >
+        <p class="alert">{{ errors }}<p>
+      </div>
+    </div>
+
+    <ion-item>
+      <ion-label floating color="primary" >Name</ion-label>
+      <ion-input type="text" formControlName="name"></ion-input>
+    </ion-item>
+    <div *ngIf="formErrors.name">
+      <div *ngFor="let errors of formErrors.name" >
+        <p class="alert">{{ errors }}<p>
+      </div>
+    </div>
+
+    <ion-item>
+      <ion-label floating color="primary" >Last Name</ion-label>
+      <ion-input type="text" formControlName="lastname"></ion-input>
+    </ion-item>
+    <div *ngIf="formErrors.lastname">
+      <div *ngFor="let errors of formErrors.lastname" >
+        <p class="alert">{{ errors }}<p>
+      </div>
+    </div>
+
+    <ion-item>
+      <ion-label floating color="primary" >Email</ion-label>
+      <ion-input type="email" formControlName="email"></ion-input>
+    </ion-item>
+    <div *ngIf="formErrors.email">
+      <div *ngFor="let errors of formErrors.email" >
+        <p class="alert">{{ errors }}<p>
+      </div>
+    </div>
+
+    <ion-item>
+      <ion-label floating color="primary">Country</ion-label>
+      <ion-select formControlName="country" validateCountry="phone">
+        <ion-option *ngFor="let item of countries" [value]="item" >{{item.name}}</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-row>
+      <ion-col width-30>
+        <ion-item>
+          <ion-label color="primary">Phone:</ion-label>
+        </ion-item>
+      </ion-col>
+      <ion-col width-25>
+        <ion-item>
+          <p>{{sampleForm.value.country.code}}</p>
+        </ion-item>
+      </ion-col>
+      <ion-col width-50>
+        <ion-item>
+          <ion-input type="tel" formControlName="phone" placeholder="Your Number" validatePhone="country"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <div *ngIf="formErrors.phone">
+      <div *ngFor="let errors of formErrors.phone" >
+        <p class="alert">{{ errors }}<p>
+      </div>
+    </div>
+
+
+    <ion-item>
+      <ion-label floating color="primary">Gender</ion-label>
+      <ion-select formControlName="gender">
+        <ion-option value="male" selected="true">Male</ion-option>
+        <ion-option value="female">Female</ion-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating color="primary" >Password</ion-label>
+      <ion-input type="password" formControlName="password" validateEqual="confirmPassword" reverse="true"></ion-input>
+    </ion-item>
+    <div *ngIf="formErrors.password">
+      <div *ngFor="let errors of formErrors.password" >
+        <p class="alert">{{ errors }}<p>
+      </div>
+    </div>
+
+    <ion-item>
+      <ion-label floating color="primary" >Confirm Password</ion-label>
+      <ion-input type="password" formControlName="confirmPassword" validateEqual="password" reverse="false"></ion-input>
+    </ion-item>
+    <div *ngIf="formErrors.confirmPassword">
+      <div *ngFor="let errors of formErrors.confirmPassword" >
+        <p class="alert">{{ errors }}<p>
+      </div>
+    </div>
+
+    <ion-item class="term">
+      <ion-label class="terms-checkbox-label">I accept terms and conditions</ion-label>
+      <ion-checkbox color="primary" formControlName="agree"></ion-checkbox>
+    </ion-item>
+    <p class="alert" [hidden]="termsAgree">You must accept terms and conditions</p>
+
+    <button ion-button full type="submit" [disabled]="!sampleForm.valid">Submit</button>
+
+  </form>
+</ion-content>
