@@ -4,7 +4,7 @@
   "homepage": "http://ionicframework.com/",
   "private": true,
   "scripts": {
-    "build": "ionic-app-scripts build --dev",
+    "build": "ionic-app-scripts build",
     "watch": "ionic-app-scripts watch",
     "serve:before": "watch",
     "emulate:before": "build",
@@ -31,7 +31,7 @@
     "zone.js": "^0.6.21"
   },
   "devDependencies": {
-    "@ionic/app-scripts": "0.0.36",
+    "@ionic/app-scripts": "0.0.43",
     "typescript": "^2.0.3"
   },
   "description": "formValidatios: An Ionic project",

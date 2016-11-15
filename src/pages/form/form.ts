@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
-import { Validators, FormBuilder, FormGroup} from '@angular/forms';
+import { Validators, FormGroup, FormControl} from '@angular/forms';
 import 'rxjs/add/operator/debounceTime';
 import { UsernameValidator } from '../../validators';
 import { UserPage } from '../user/user';
 import { Country } from './country.class';
 import { NavController } from 'ionic-angular';
+
 
 @Component({
   selector: 'page-form',
@@ -17,39 +18,39 @@ export class FormPage {
   termsAgree: boolean;
   countries: Country[];
 
-  constructor(public navCtrl: NavController, public fbld: FormBuilder) {}
+  constructor(public navCtrl: NavController) {}
 
   ionViewDidLoad() {
     this.countries = [new Country('UY', 'Uruguay', '+598'), new Country('US', 'United States', '+1')];
     this.termsAgree = true;
 
-    this.sampleForm = this.fbld.group({
-      username: ['', Validators.compose([
+    this.sampleForm = new FormGroup({
+      username: new FormControl('', Validators.compose([
         UsernameValidator.validUsername,
         Validators.maxLength(25),
         Validators.minLength(5),
         Validators.pattern('^(?=.*[a-zA-Z])(?=.*[0-9])[a-zA-Z0-9]+$'),
         Validators.required
-      ])],
-      name: ['', Validators.required],
-      lastname: ['', Validators.required],
-      email: ['', Validators.compose([
+      ])),
+      name: new FormControl('', Validators.required),
+      lastname: new FormControl('', Validators.required),
+      email: new FormControl('', Validators.compose([
         Validators.required,
         Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')
-      ])],
-      country: [this.countries[0], Validators.required],
-      phone: ['', Validators.compose([
+      ])),
+      country: new FormControl(this.countries[0], Validators.required),
+      phone: new FormControl('', Validators.compose([
         Validators.pattern('^\\d+$'),
         Validators.required
-      ])],
-      gender: ['male', Validators.required],
-      password: ['', Validators.compose([
+      ])),
+      gender: new FormControl('male', Validators.required),
+      password: new FormControl('', Validators.compose([
         Validators.minLength(5),
         Validators.required,
         Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]+$')
-      ])],
-      confirmPassword: ['', Validators.required],
-      agree: [false, Validators.required]
+      ])),
+      confirmPassword: new FormControl('', Validators.required),
+      agree: new FormControl(false, Validators.required)
     });
 
     this.sampleForm.valueChanges
