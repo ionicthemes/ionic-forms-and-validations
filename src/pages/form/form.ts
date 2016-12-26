@@ -20,7 +20,7 @@ export class FormPage {
 
   constructor(public navCtrl: NavController) {}
 
-  ionViewDidLoad() {
+  ionViewWillLoad() {
     this.countries = [new Country('UY', 'Uruguay', '+598'), new Country('US', 'United States', '+1')];
     this.termsAgree = true;
 
