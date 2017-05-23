@@ -1,54 +1,33 @@
-import { Directive, forwardRef, Input } from '@angular/core';
-import { Validator, AbstractControl, NG_VALIDATORS } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 
-export const EQUAL_VALIDATOR: any = {
-  provide: NG_VALIDATORS,
-  useExisting: forwardRef(() => EqualValidator),
-  multi: true
-};
+export class PasswordValidator {
 
-@Directive({
-  selector: '[validateEqual][formControlName],[validateEqual][formControl],[validateEqual][ngModel]',
-  providers: [EQUAL_VALIDATOR]
-})
+  // Inspired on: http://plnkr.co/edit/Zcbg2T3tOxYmhxs7vaAm?p=preview
+  static areEqual(formGroup: FormGroup) {
+    let val;
+    let valid = true;
 
-export class EqualValidator implements Validator {
+    for (let key in formGroup.controls) {
+      if (formGroup.controls.hasOwnProperty(key)) {
+        let control: FormControl = <FormControl>formGroup.controls[key];
 
-  @Input() validateEqual: string;
-  @Input() reverse: string;
-
-  private get isReverse() {
-    if (!this.reverse) return false;
-    return this.reverse === 'true' ? true: false;
-  }
-
-  validate(c: AbstractControl): { [key: string]: any } {
-    // self value
-    let v = c.value;
-
-    // control value
-    let e = c.root.get(this.validateEqual);
-
-    // value not equal
-    if (e && v !== e.value && !this.isReverse) {
-      return {
-        validateEqual: false
+        if (val === undefined) {
+          val = control.value
+        } else {
+          if (val !== control.value) {
+            valid = false;
+            break;
+          }
+        }
       }
     }
 
-    // value equal and reverse
-    if (e && v === e.value && this.isReverse) {
-      delete e.errors['validateEqual'];
-      if (!Object.keys(e.errors).length) e.setErrors(null);
+    if (valid) {
+      return null;
     }
 
-    // value not equal and reverse
-    if (e && v !== e.value && this.isReverse) {
-      e.setErrors({
-          validateEqual: false
-      })
-    }
-
-    return null;
+    return {
+      areEqual: true
+    };
   }
 }

@@ -1,42 +1,45 @@
+import { AbstractControl, ValidatorFn } from '@angular/forms';
 import libphonenumber from 'google-libphonenumber';
-import { Directive, forwardRef, Input } from '@angular/core';
-import { Validator, AbstractControl, NG_VALIDATORS } from '@angular/forms';
 
-export const PHONE_VALIDATOR: any = {
-  provide: NG_VALIDATORS,
-  useExisting: forwardRef(() => PhoneValidator),
-  multi: true
-};
+export class PhoneValidator {
 
-@Directive({
-  selector: '[validatePhone][formControlName],[validatePhone][formControl],[validatePhone][ngModel]',
-  providers: [ PHONE_VALIDATOR ]
-})
+  // Inspired on: https://github.com/yuyang041060120/ng2-validation/blob/master/src/equal-to/validator.ts
+  static validCountryPhone = (countryControl: AbstractControl): ValidatorFn => {
+    let subscribe: boolean = false;
 
-export class PhoneValidator implements Validator {
+    return (phoneControl: AbstractControl): {[key: string]: boolean} => {
+      if (!subscribe) {
+        subscribe = true;
+        countryControl.valueChanges.subscribe(() => {
+          phoneControl.updateValueAndValidity();
+        });
+      }
 
-  @Input() validatePhone: string;
+      if(phoneControl.value !== ""){
+        try{
+          const phoneUtil = libphonenumber.PhoneNumberUtil.getInstance();
+          let phoneNumber = "" + phoneControl.value + "",
+              region = countryControl.value.iso,
+              number = phoneUtil.parse(phoneNumber, region),
+              isValidNumber = phoneUtil.isValidNumber(number);
 
-  validate(c: AbstractControl): { [key: string]: any } {
-    // self value
-    let phone = c.value;
-
-    // control value
-    let country = c.root.get(this.validatePhone);
-
-    try{
-      const phoneUtil = libphonenumber.PhoneNumberUtil.getInstance();
-      let phoneNumber = "" + phone + "",
-          region = country.value.iso,
-          number = phoneUtil.parse(phoneNumber, region),
-          isValidNumber = phoneUtil.isValidNumber(number);
-          if(!isValidNumber){
-            return {validatePhone: false}
+          if(isValidNumber){
+            return null;
           }
-    }catch(e){
-      console.log(e);
-      return { validatePhone: false };
-    }
-    return null
-  }
+        }catch(e){
+          // console.log(e);
+          return {
+            validCountryPhone: true
+          };
+        }
+
+        return {
+          validCountryPhone: true
+        };
+      }
+      else{
+        return null;
+      }
+    };
+  };
 }

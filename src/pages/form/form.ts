@@ -1,11 +1,15 @@
 import { Component } from '@angular/core';
-import { Validators, FormGroup, FormControl} from '@angular/forms';
-import 'rxjs/add/operator/debounceTime';
-import { UsernameValidator } from '../../validators';
-import { UserPage } from '../user/user';
-import { Country } from './country.class';
+import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { NavController } from 'ionic-angular';
+import { UserPage } from '../../pages/user/user';
 
+import { UsernameValidator } from '../../validators/username.validator';
+import { PasswordValidator } from '../../validators/password.validator';
+import { PhoneValidator } from '../../validators/phone.validator';
+
+import { Country } from './form.model';
+
+import emailMask from 'text-mask-addons/dist/emailMask';
 
 @Component({
   selector: 'page-form',
@@ -14,17 +18,51 @@ import { NavController } from 'ionic-angular';
 
 export class FormPage {
 
-  sampleForm: FormGroup;
-  termsAgree: boolean;
-  countries: Country[];
+  validations_form: FormGroup;
+  matching_passwords_group: FormGroup;
+  country_phone_group: FormGroup;
 
-  constructor(public navCtrl: NavController) {}
+  emailMask = emailMask;
+
+  countries: Array<Country>;
+  genders: Array<string>;
+
+  constructor(public navCtrl: NavController, public formBuilder: FormBuilder) { }
 
   ionViewWillLoad() {
-    this.countries = [new Country('UY', 'Uruguay', '+598'), new Country('US', 'United States', '+1')];
-    this.termsAgree = true;
+    this.countries = [
+      new Country('UY', 'Uruguay'),
+      new Country('US', 'United States'),
+      new Country('AR', 'Argentina')
+    ];
 
-    this.sampleForm = new FormGroup({
+    this.genders = [
+      "Male",
+      "Female"
+    ];
+
+    this.matching_passwords_group = new FormGroup({
+      password: new FormControl('', Validators.compose([
+        Validators.minLength(5),
+        Validators.required,
+        Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]+$')
+      ])),
+      confirm_password: new FormControl('', Validators.required)
+    }, (formGroup: FormGroup) => {
+      return PasswordValidator.areEqual(formGroup);
+    });
+
+    let country = new FormControl(this.countries[0], Validators.required);
+    let phone = new FormControl('', Validators.compose([
+      Validators.required,
+      PhoneValidator.validCountryPhone(country)
+    ]));
+    this.country_phone_group = new FormGroup({
+      country: country,
+      phone: phone
+    });
+
+    this.validations_form = this.formBuilder.group({
       username: new FormControl('', Validators.compose([
         UsernameValidator.validUsername,
         Validators.maxLength(25),
@@ -38,96 +76,53 @@ export class FormPage {
         Validators.required,
         Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')
       ])),
-      country: new FormControl(this.countries[0], Validators.required),
-      phone: new FormControl('', Validators.compose([
-        Validators.pattern('^\\d+$'),
-        Validators.required
-      ])),
-      gender: new FormControl('male', Validators.required),
-      password: new FormControl('', Validators.compose([
-        Validators.minLength(5),
-        Validators.required,
-        Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]+$')
-      ])),
-      confirmPassword: new FormControl('', Validators.required),
-      agree: new FormControl(false, Validators.required)
+      gender: new FormControl(this.genders[0], Validators.required),
+      country_phone: this.country_phone_group,
+      matching_passwords: this.matching_passwords_group,
+      terms: new FormControl(true, Validators.pattern('true'))
     });
-
-    this.sampleForm.valueChanges
-      .debounceTime(400)
-      .subscribe(data => this.onValueChanged(data));
   }
 
-  onValueChanged(data?: any) {
-    if (!this.sampleForm) { return; }
-    const form = this.sampleForm;
-    for (const field in this.formErrors) {
-      // clear previous error message
-      this.formErrors[field] = [];
-      this.sampleForm[field] = '';
-      const control = form.get(field);
-      if (control && control.dirty && !control.valid) {
-        const messages = this.validationMessages[field];
-        for (const key in control.errors) {
-          this.formErrors[field].push(messages[key]);
-        }
-      }
-    }
-  }
-
-  formErrors = {
-    'username': [],
-    'name': [],
-    'lastname': [],
-    'email': [],
-    'phone': [],
-    'password': [],
-    'confirmPassword': []
-  };
-
-  validationMessages = {
-    'username': {
-      'required':      'Username is required.',
-      'minlength':     'Username must be at least 5 characters long.',
-      'maxlength':     'Username cannot be more than 25 characters long.',
-      'pattern':       'Your username must contain only numbers and letters.',
-      'validUsername': 'Your username has already been taken.'
-    },
-    'name': {
-      'required':      'Name is required.'
-    },
-    'lastname': {
-      'required':      'Last name is required'
-    },
-    'email': {
-      'required':      'Email is required',
-      'pattern':       'Enter a valid email.'
-    },
-    'phone': {
-      'required':      'Phone is required',
-      'pattern':       'Enter only numbers',
-      'validatePhone': 'Phone incorrect for the country selected'
-    },
-    'password': {
-      'required':      'Password is required',
-      'minlength':     'Password must be at least 5 characters long.',
-      'pattern':       'Your password must contain at least one uppercase, one lowercase, and one number.'
-    },
-    'confirmPassword':{
-      'required':      'Confirm password is required',
-      'minlength':     'Confirm password must be at least 5 characters long.',
-      'pattern':       'Your password must contain at least one uppercase, one lowercase, and one number.',
-      'validateEqual': 'Password mismatch'
-    }
+  validation_messages = {
+    'username': [
+      { type: 'required', message: 'Username is required.' },
+      { type: 'minlength', message: 'Username must be at least 5 characters long.' },
+      { type: 'maxlength', message: 'Username cannot be more than 25 characters long.' },
+      { type: 'pattern', message: 'Your username must contain only numbers and letters.' },
+      { type: 'validUsername', message: 'Your username has already been taken.' }
+    ],
+    'name': [
+      { type: 'required', message: 'Name is required.' }
+    ],
+    'lastname': [
+      { type: 'required', message: 'Last name is required.' }
+    ],
+    'email': [
+      { type: 'required', message: 'Email is required.' },
+      { type: 'pattern', message: 'Enter a valid email.' }
+    ],
+    'phone': [
+      { type: 'required', message: 'Phone is required.' },
+      { type: 'validCountryPhone', message: 'Phone incorrect for the country selected' }
+    ],
+    'password': [
+      { type: 'required', message: 'Password is required.' },
+      { type: 'minlength', message: 'Password must be at least 5 characters long.' },
+      { type: 'pattern', message: 'Your password must contain at least one uppercase, one lowercase, and one number.' }
+    ],
+    'confirm_password': [
+      { type: 'required', message: 'Confirm password is required' }
+    ],
+    'matching_passwords': [
+      { type: 'areEqual', message: 'Password mismatch' }
+    ],
+    'terms': [
+      { type: 'pattern', message: 'You must accept terms and conditions.' }
+    ],
   };
 
   onSubmit(values){
-    if(values.agree){
-      this.termsAgree = true;
-      this.navCtrl.push(UserPage);
-    }
-    else{
-      this.termsAgree = false;
-    }
+    this.navCtrl.push(UserPage);
   }
+
 }
