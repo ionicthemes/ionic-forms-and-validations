@@ -3,19 +3,20 @@ import { IonicApp, IonicModule } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { FormPage } from '../pages/form/form';
 import { UserPage } from '../pages/user/user';
-import { EqualValidator, PhoneValidator, CountryValidator } from '../validators';
+import { StatusBar} from "@ionic-native/status-bar";
+import { BrowserModule } from '@angular/platform-browser';
+import { ValidatorsModule } from '../validators/validators.module';
 
 @NgModule({
   declarations: [
     MyApp,
     FormPage,
-    UserPage,
-    EqualValidator,
-    PhoneValidator,
-    CountryValidator
+    UserPage
   ],
   imports: [
+    BrowserModule,
     IonicModule.forRoot(MyApp),
+    ValidatorsModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -23,6 +24,8 @@ import { EqualValidator, PhoneValidator, CountryValidator } from '../validators'
     FormPage,
     UserPage
   ],
-  providers: []
+  providers: [
+    StatusBar
+  ]
 })
 export class AppModule {}
