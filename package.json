@@ -37,8 +37,8 @@
   },
   "devDependencies": {
     "@ionic/app-scripts": "1.3.7",
-    "@ionic/cli-plugin-cordova": "1.1.2",
-    "@ionic/cli-plugin-ionic-angular": "1.1.2",
+    "@ionic/cli-plugin-cordova": "1.4.0",
+    "@ionic/cli-plugin-ionic-angular": "1.3.1",
     "typescript": "2.2.1"
   },
   "description": "formValidatios: An Ionic project",
