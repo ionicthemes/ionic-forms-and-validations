@@ -1,7 +1,13 @@
-### Complete Tutorial in: https://ionicthemes.com/tutorials/about/ionic2-form-handling-and-validation
+### Complete Tutorial in: https://ionicthemes.com/tutorials/about/forms-and-validation-in-ionic 
 
-Forms are usually one of the major points of interaction between an app and the user, allowing them to send data to the application. Commonly the data is sent to the web server, but the app can also intercept it to use it on its own.
+This repo is part of a tutorial where you will learn everything about Ionic forms and input validations in Ionic apps.
 
-In this post you will learn everything about Ionic 2 Form Handling and Validation.
+We will discuss the best practices for designing user-friendly forms with ionic. Then we will go through the differences between Angular template driven and reactive forms.
 
-We are going to showcase several examples and help you master data collection using forms and some techniques to excel the user experience.
+For this ionic tutorial we created a mobile app example with lots of forms and validations to help you master data collection using angular reactive forms and also some techniques to excel the user experience.
+
+We will explain you the core concepts of: FormControl, FormGroup, FormBuilder and Validators and show you examples so you can learn to use them properly.
+
+We want this to be the best ionic forms tutorial, so we created advanced custom validators to show you how to validate passwords, phone numbers and unique usernames.
+
+Learn more in https://ionicthemes.com/tutorials/about/forms-and-validation-in-ionic 
