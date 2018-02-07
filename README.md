@@ -1,5 +1,8 @@
 ### Complete Tutorial in: https://ionicthemes.com/tutorials/about/forms-and-validation-in-ionic 
 
+
+**Please support this project by simply putting a Github star ⭐. Share this library with friends on Twitter and everywhere else you can. 🙏**
+
 This repo is part of a tutorial where you will learn everything about Ionic forms and input validations in Ionic apps.
 
 We will discuss the best practices for designing user-friendly forms with ionic. Then we will go through the differences between Angular template driven and reactive forms.
