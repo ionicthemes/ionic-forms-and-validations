@@ -1,71 +1,46 @@
 {
-    "name": "formvalidatios",
-    "author": "Ionic Framework",
-    "homepage": "http://ionicframework.com/",
-    "private": true,
-    "scripts": {
-        "build": "ionic-app-scripts build",
-        "watch": "ionic-app-scripts watch",
-        "serve:before": "watch",
-        "emulate:before": "build",
-        "deploy:before": "build",
-        "build:before": "build",
-        "run:before": "build"
-    },
-    "dependencies": {
-        "@angular/common": "4.1.0",
-        "@angular/compiler": "4.1.0",
-        "@angular/compiler-cli": "4.1.0",
-        "@angular/core": "4.1.0",
-        "@angular/forms": "4.1.0",
-        "@angular/http": "4.1.0",
-        "@angular/platform-browser": "4.1.0",
-        "@angular/platform-browser-dynamic": "4.1.0",
-        "@ionic-native/core": "3.6.1",
-        "@ionic-native/splash-screen": "3.6.1",
-        "@ionic-native/status-bar": "3.6.1",
-        "@ionic/storage": "2.0.1",
-        "angular2-text-mask": "8.0.1",
-        "cordova-ios": "^4.4.0",
-        "cordova-plugin-console": "^1.0.7",
-        "cordova-plugin-device": "^1.1.6",
-        "cordova-plugin-splashscreen": "^4.0.3",
-        "cordova-plugin-statusbar": "^2.2.3",
-        "cordova-plugin-whitelist": "^1.3.2",
-        "google-libphonenumber": "2.0.15",
-        "ionic-angular": "3.2.1",
-        "ionic-plugin-keyboard": "^2.2.1",
-        "ionicons": "3.0.0",
-        "rxjs": "5.1.1",
-        "sw-toolbox": "3.6.0",
-        "text-mask-addons": "3.5.1",
-        "zone.js": "0.8.10"
-    },
-    "devDependencies": {
-        "@ionic/app-scripts": "1.3.7",
-        "typescript": "2.2.1"
-    },
-    "description": "formValidatios: An Ionic project",
-    "cordovaPlugins": [
-        "cordova-plugin-device",
-        "cordova-plugin-console",
-        "cordova-plugin-whitelist",
-        "cordova-plugin-splashscreen",
-        "cordova-plugin-statusbar",
-        "ionic-plugin-keyboard"
-    ],
-    "cordovaPlatforms": [],
-    "cordova": {
-        "plugins": {
-            "cordova-plugin-console": {},
-            "cordova-plugin-device": {},
-            "cordova-plugin-splashscreen": {},
-            "cordova-plugin-statusbar": {},
-            "cordova-plugin-whitelist": {},
-            "ionic-plugin-keyboard": {}
-        },
-        "platforms": [
-            "ios"
-        ]
-    }
+  "name": "ionic4-forms",
+  "version": "0.0.1",
+  "author": "IonicThemes Team",
+  "homepage": "https://ionicthemes.com/",
+  "scripts": {
+    "ng": "ng",
+    "start": "ng serve",
+    "build": "ng build"
+  },
+  "private": true,
+  "dependencies": {
+    "@angular/common": "^7.2.2",
+    "@angular/core": "^7.2.2",
+    "@angular/forms": "^7.2.2",
+    "@angular/http": "^7.2.2",
+    "@angular/platform-browser": "^7.2.2",
+    "@angular/platform-browser-dynamic": "^7.2.2",
+    "@angular/router": "^7.2.2",
+    "@ionic-native/core": "^5.0.0",
+    "@ionic-native/splash-screen": "^5.0.0",
+    "@ionic-native/status-bar": "^5.0.0",
+    "@ionic/angular": "4.0.1",
+    "core-js": "^2.5.4",
+    "google-libphonenumber": "^3.2.2",
+    "rxjs": "~6.3.3",
+    "zone.js": "~0.8.29"
+  },
+  "devDependencies": {
+    "@angular-devkit/architect": "~0.12.3",
+    "@angular-devkit/build-angular": "~0.12.3",
+    "@angular-devkit/core": "~7.2.3",
+    "@angular-devkit/schematics": "~7.2.3",
+    "@angular/cli": "~7.2.3",
+    "@angular/compiler": "~7.2.2",
+    "@angular/compiler-cli": "~7.2.2",
+    "@angular/language-service": "~7.2.2",
+    "@ionic/angular-toolkit": "~1.3.0",
+    "@types/node": "~10.12.0",
+    "codelyzer": "~4.5.0",
+    "ts-node": "~8.0.0",
+    "tslint": "~5.12.0",
+    "typescript": "~3.1.6"
+  },
+  "description": "An Ionic 4 project to explain how to use Forms"
 }

@@ -1,31 +1,24 @@
 import { NgModule } from '@angular/core';
-import { IonicApp, IonicModule } from 'ionic-angular';
-import { MyApp } from './app.component';
-import { FormPage } from '../pages/form/form';
-import { UserPage } from '../pages/user/user';
-import { StatusBar} from "@ionic-native/status-bar";
 import { BrowserModule } from '@angular/platform-browser';
-import { ValidatorsModule } from '../validators/validators.module';
+import { RouteReuseStrategy } from '@angular/router';
+
+import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
+import { SplashScreen } from '@ionic-native/splash-screen/ngx';
+import { StatusBar } from '@ionic-native/status-bar/ngx';
+
+import { AppComponent } from './app.component';
+import { AppRoutingModule } from './app-routing.module';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
-  declarations: [
-    MyApp,
-    FormPage,
-    UserPage
-  ],
-  imports: [
-    BrowserModule,
-    IonicModule.forRoot(MyApp),
-    ValidatorsModule
-  ],
-  bootstrap: [IonicApp],
-  entryComponents: [
-    MyApp,
-    FormPage,
-    UserPage
-  ],
+  declarations: [AppComponent],
+  entryComponents: [],
+  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, ReactiveFormsModule],
   providers: [
-    StatusBar
-  ]
+    StatusBar,
+    SplashScreen,
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
+  ],
+  bootstrap: [AppComponent]
 })
 export class AppModule {}

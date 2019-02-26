@@ -1,26 +1,21 @@
 {
+  "compileOnSave": false,
   "compilerOptions": {
-    "allowSyntheticDefaultImports": true,
-    "declaration": true,
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "lib": [
-      "dom",
-      "es2015"
-    ],
+    "baseUrl": "./",
+    "outDir": "./dist/out-tsc",
+    "sourceMap": true,
+    "declaration": false,
     "module": "es2015",
     "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
     "target": "es5",
-    "sourceMap": true
-  },
-  "include": [
-    "src/**/*.ts"
-  ],
-  "exclude": [
-    "node_modules"
-  ],
-  "compileOnSave": false,
-  "atom": {
-    "rewriteTsconfig": false
+    "typeRoots": [
+      "node_modules/@types"
+    ],
+    "lib": [
+      "es2018",
+      "dom"
+    ]
   }
 }

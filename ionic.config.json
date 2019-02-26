@@ -1,8 +1,5 @@
 {
-  "name": "formValidatios",
-  "app_id": "6e8c940e",
-  "type": "ionic-angular",
-  "integrations": {
-    "cordova": {}
-  }
+  "name": "ionic4-forms",
+  "integrations": {},
+  "type": "angular"
 }
