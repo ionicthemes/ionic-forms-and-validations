@@ -3,7 +3,7 @@ import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms'
 import { UsernameValidator } from '../validators/username.validator';
 import { PhoneValidator } from '../validators/phone.validator';
 import { PasswordValidator } from '../validators/password.validator';
-import { Country } from './country.model';
+import { CountryPhone } from './country-phone.model';
 import { Router } from '@angular/router';
 
 @Component({
@@ -17,7 +17,7 @@ export class FormPage implements OnInit {
   matching_passwords_group: FormGroup;
   country_phone_group: FormGroup;
 
-  countries: Array<Country>;
+  countries: Array<CountryPhone>;
   genders: Array<string>;
 
   constructor(
@@ -26,10 +26,12 @@ export class FormPage implements OnInit {
   ) { }
 
   ngOnInit() {
+    //  We just use a few random countries, however, you can use the countries you need by just adding them to this list.
+    // also you can use a library to get all the countries from the world.
     this.countries = [
-      new Country('UY', 'Uruguay'),
-      new Country('US', 'United States'),
-      new Country('AR', 'Argentina')
+      new CountryPhone('UY', 'Uruguay'),
+      new CountryPhone('US', 'United States'),
+      new CountryPhone('BR', 'Brasil')
     ];
 
     this.genders = [
@@ -118,6 +120,7 @@ export class FormPage implements OnInit {
   };
 
   onSubmit(values){
+    console.log(values);
     this.router.navigate(["/user"]);
   }
 
