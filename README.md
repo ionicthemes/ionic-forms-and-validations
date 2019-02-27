@@ -1,6 +1,5 @@
-## Ionic 4 Forms
+# Ionic 4 Forms
 
-## Read the complete tutorial
 This repo is part of an Ionic 4 tutorial where you will learn everything about Ionic forms and input validations in Ionic 4 apps. You can read it in https://ionicthemes.com/tutorials/about/forms-and-validation-in-ionic
 
 **Please support this project by simply putting a Github star ⭐**
