@@ -123,5 +123,4 @@ export class FormPage implements OnInit {
     console.log(values);
     this.router.navigate(["/user"]);
   }
-
 }

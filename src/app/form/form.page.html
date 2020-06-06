@@ -1,11 +1,11 @@
 <ion-header>
   <ion-toolbar color="primary">
-    <ion-title>Ionic 4 Forms</ion-title>
+    <ion-title>Ionic Angular Forms</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content padding class="form-content">
-  <form [formGroup]="validations_form"  (ngSubmit)="onSubmit(validations_form.value)">
+  <form [formGroup]="validations_form" (ngSubmit)="onSubmit(validations_form.value)">
     <ion-item>
       <ion-label position="floating" color="primary">Username</ion-label>
       <ion-input type="text" formControlName="username"></ion-input>
@@ -128,7 +128,6 @@
         </div>
       </ng-container>
     </div>
-
-    <ion-button color="primary" class="submit-btn" expand="full" type="submit" [disabled]="!validations_form.valid">Submit data</ion-button>
+    <ion-button color="primary" class="submit-btn" expand="block" type="submit" [disabled]="!validations_form.valid">Submit data</ion-button>
   </form>
 </ion-content>
