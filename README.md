@@ -7,6 +7,13 @@ This repo is part of an Ionic 5 tutorial where you will learn everything about [
 ### Demo
 - [Online demo](https://ionic4-forms-tutorial.firebaseapp.com)
 
+### Screenshots
+<div>
+  <img src="https://s3-us-west-2.amazonaws.com/ionicthemes/tutorials/screenshots/forms-and-validation-in-ionic/ionic-forms-tutorial-demo-1.png" width="270">
+ 
+  <img src="https://s3-us-west-2.amazonaws.com/ionicthemes/tutorials/screenshots/forms-and-validation-in-ionic/ionic-forms-tutorial-demo-2.png" width="270">
+</div>
+
 ## Install this Ionic 5 Forms Demo App
 ```
 npm install
